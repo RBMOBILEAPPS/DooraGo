@@ -1,0 +1,115 @@
+{
+  "dataset_version": "doora_dataset_v1",
+  "created_date": "2026-09-04",
+  "provenance_description": "Formal licensing and provenance registry for DooraGo 'Doora' Keyword Spotting (KWS) dataset.",
+  "sources": [
+    {
+      "source_name": "Piper TTS Engine",
+      "source_type": "tts_engine",
+      "source_url": "https://github.com/rhasspy/piper",
+      "license": "MIT",
+      "license_url": "https://github.com/rhasspy/piper/blob/master/LICENSE.md",
+      "commercial_ml_training_allowed": true,
+      "attribution_required": true,
+      "redistribution_allowed": true,
+      "verified": true,
+      "verification_notes": "Piper engine software is MIT licensed. Individual voice models must be independently verified."
+    },
+    {
+      "source_name": "Piper Voice: LJSpeech (en_US-ljspeech-medium)",
+      "source_type": "voice_checkpoint",
+      "source_url": "https://huggingface.co/rhasspy/piper-voices",
+      "license": "Public Domain / CC0 (Based on LJSpeech-1.1)",
+      "license_url": "https://keithito.com/LJ-Speech-Dataset/",
+      "commercial_ml_training_allowed": true,
+      "attribution_required": false,
+      "redistribution_allowed": true,
+      "verified": true,
+      "verification_notes": "Trained on Keith Ito's public domain LJSpeech dataset. Permissible for commercial training and model distribution."
+    },
+    {
+      "source_name": "Piper Voice: Kristin (en_US-kristin-medium)",
+      "source_type": "voice_checkpoint",
+      "source_url": "https://huggingface.co/rhasspy/piper-voices",
+      "license": "Public Domain / CC0 (Kristin dataset)",
+      "license_url": "https://huggingface.co/rhasspy/piper-voices",
+      "commercial_ml_training_allowed": true,
+      "attribution_required": false,
+      "redistribution_allowed": true,
+      "verified": true,
+      "verification_notes": "Trained on Kristin public domain voice dataset in Piper repository."
+    },
+    {
+      "source_name": "Piper Voice: Thorsten (de_DE-thorsten-medium)",
+      "source_type": "voice_checkpoint",
+      "source_url": "https://huggingface.co/rhasspy/piper-voices",
+      "license": "CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_ml_training_allowed": true,
+      "attribution_required": false,
+      "redistribution_allowed": true,
+      "verified": true,
+      "verification_notes": "Thorsten voice recordings are dedicated to the public domain under CC0."
+    },
+    {
+      "source_name": "Piper Voice: VCTK (en_GB-vctk-medium)",
+      "source_type": "voice_checkpoint",
+      "source_url": "https://huggingface.co/rhasspy/piper-voices",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "commercial_ml_training_allowed": true,
+      "attribution_required": true,
+      "redistribution_allowed": true,
+      "verified": true,
+      "verification_notes": "Trained on CSTR VCTK Corpus. Requires attribution to University of Edinburgh / CSTR in technical documentation."
+    },
+    {
+      "source_name": "LibriSpeech Clean 100",
+      "source_type": "speech_corpus",
+      "source_url": "https://www.openslr.org/12",
+      "license": "CC BY 4.0 / Public Domain (LibriVox audiobooks)",
+      "license_url": "https://www.openslr.org/12",
+      "commercial_ml_training_allowed": true,
+      "attribution_required": true,
+      "redistribution_allowed": true,
+      "verified": true,
+      "verification_notes": "OpenSLR 12 corpus used for general negative speech slices. Commercial ML training is permitted."
+    },
+    {
+      "source_name": "MUSAN Noise & Speech Corpus",
+      "source_type": "noise_corpus",
+      "source_url": "https://www.openslr.org/17",
+      "license": "Creative Commons Attribution 4.0 / Public Domain",
+      "license_url": "https://www.openslr.org/17",
+      "commercial_ml_training_allowed": true,
+      "attribution_required": true,
+      "redistribution_allowed": true,
+      "verified": true,
+      "verification_notes": "OpenSLR 17 corpus used for room ambience, foley, and environmental background noise."
+    },
+    {
+      "source_name": "Google Speech Commands v2 (Negative Classes)",
+      "source_type": "speech_corpus",
+      "source_url": "https://www.tensorflow.org/datasets/catalog/speech_commands",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "commercial_ml_training_allowed": true,
+      "attribution_required": true,
+      "redistribution_allowed": true,
+      "verified": true,
+      "verification_notes": "Auxiliary short negative command words (e.g. 'yes', 'no', 'stop', 'play')."
+    },
+    {
+      "source_name": "Local Human Contributor Recordings",
+      "source_type": "human_recordings",
+      "source_url": "local://kws_dataset/positive/human_spk_*",
+      "license": "Proprietary Developer Ownership",
+      "license_url": "local://LICENSE",
+      "commercial_ml_training_allowed": true,
+      "attribution_required": false,
+      "redistribution_allowed": true,
+      "verified": true,
+      "verification_notes": "Direct recordings contributed by project developers/testers with anonymized speaker IDs. Zero PII stored."
+    }
+  ]
+}

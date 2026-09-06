@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Official DooraGo Production Launcher Icon Foreground (Adaptive Icon layer).
+    Prioritizes the central DooraGo emblem (3D D, speaking profile, audio wave bars)
+    optimized for crisp rendering inside Android's 72dp safe zone (108dp canvas).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!--
+        Safe-Zone Optimization Group:
+        Android Adaptive Icon safe zone is a 66dp-diameter circle inside the 108dp canvas.
+        Scaled by 0.58 and optically centered at (54,54) to ensure 0% cropping on all
+        circle, squircle, and OEM launcher masks.
+    -->
+    <group
+        android:pivotX="58"
+        android:pivotY="54"
+        android:scaleX="0.58"
+        android:scaleY="0.58"
+        android:translateX="-4"
+        android:translateY="0">
+
+        <!-- 1. Ambient Brand Neon Glow -->
+        <path
+            android:pathData="M 54,22 C 74,22 88,36 88,54 C 88,72 74,86 54,86 C 34,86 20,72 20,54 C 20,36 34,22 54,22 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="radial"
+                    android:centerX="54"
+                    android:centerY="54"
+                    android:gradientRadius="40"
+                    android:startColor="#3500E5FF"
+                    android:endColor="#00000000" />
+            </aapt:attr>
+        </path>
+
+        <!-- 2. 3D Outer Depth / Purple-Blue Shadow Extrusion -->
+        <path
+            android:pathData="M 37,30
+                              C 40,28 46,26 53,26
+                              C 70,26 86,38 86,54
+                              C 86,70 70,82 53,82
+                              C 45,82 39,80 35,77
+                              L 24,90
+                              C 32,95 42,97 53,97
+                              C 78,97 99,80 99,54
+                              C 99,28 78,13 53,13
+                              C 40,13 31,17 23,23
+                              Z"
+            android:fillColor="#0D1B48" />
+
+        <!-- 3. Main 3D Stylized "D" Body (Vibrant Cyan-to-Cobalt Gradient) -->
+        <path
+            android:pathData="M 38,28
+                              C 42,26 47,24 54,24
+                              C 73,24 91,37 91,54
+                              C 91,71 73,84 54,84
+                              C 47,84 41,81 37,78
+                              L 26,89
+                              C 34,93 43,95 54,95
+                              C 79,95 101,78 101,54
+                              C 101,30 79,15 54,15
+                              C 41,15 32,19 25,25
+                              Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="25"
+                    android:startY="15"
+                    android:endX="101"
+                    android:endY="95"
+                    android:startColor="#00E5FF"
+                    android:centerColor="#2979FF"
+                    android:endColor="#1565C0" />
+            </aapt:attr>
+        </path>
+
+        <!-- 4. Top-Left Wing Bevel Highlight (Light Reflection) -->
+        <path
+            android:pathData="M 25,25
+                              C 32,19 41,15 54,15
+                              C 73,15 90,26 97,42
+                              C 89,29 73,24 54,24
+                              C 47,24 42,26 38,28
+                              Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="25"
+                    android:startY="15"
+                    android:endX="97"
+                    android:endY="42"
+                    android:startColor="#E0F7FA"
+                    android:centerColor="#00E5FF"
+                    android:endColor="#0288D1" />
+            </aapt:attr>
+        </path>
+
+        <!-- 5. Inner Counter / Speaking Face Profile Silhouette -->
+        <path
+            android:pathData="M 52,30
+                              C 66,30 81,39 81,54
+                              C 81,69 66,78 52,78
+                              L 43,78
+                              C 46,73 48,68 49,63
+                              C 47,62 46,61 46,60
+                              C 47,59 49,58 50,57
+                              C 48,54 48,52 51,49
+                              C 52,48 50,45 49,43
+                              C 47,40 45,35 43,30
+                              Z"
+            android:fillColor="#05060A" />
+
+        <!-- 6. Glowing Cyan Face Profile Light Rim -->
+        <path
+            android:pathData="M 43,30
+                              C 45,35 47,40 49,43
+                              C 50,45 52,48 51,49
+                              C 48,52 48,54 50,57
+                              C 49,58 47,59 46,60
+                              C 46,61 47,62 49,63
+                              C 48,68 46,73 43,78"
+            android:strokeWidth="1.8"
+            android:strokeColor="#00E5FF"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:fillAlpha="0" />
+
+        <!-- 7. Central Audio Waveform Equalizer Bars -->
+        <!-- Bar 1 (Far Left Dot) -->
+        <path
+            android:pathData="M 54,51 A 2.5,2.5 0 1,1 54,57 A 2.5,2.5 0 1,1 54,51 Z"
+            android:fillColor="#00E5FF" />
+
+        <!-- Bar 2 (Mid-Left Bar) -->
+        <path
+            android:pathData="M 59,45 L 59,63"
+            android:strokeWidth="3.4"
+            android:strokeColor="#00E5FF"
+            android:strokeLineCap="round" />
+
+        <!-- Bar 3 (Center Peak Bar - Tallest) -->
+        <path
+            android:pathData="M 65,38 L 65,70"
+            android:strokeWidth="3.8"
+            android:strokeColor="#80D8FF"
+            android:strokeLineCap="round" />
+
+        <!-- Bar 4 (Mid-Right Bar) -->
+        <path
+            android:pathData="M 71,45 L 71,63"
+            android:strokeWidth="3.4"
+            android:strokeColor="#00E5FF"
+            android:strokeLineCap="round" />
+
+        <!-- Bar 5 (Far Right Dot) -->
+        <path
+            android:pathData="M 76,51 A 2.5,2.5 0 1,1 76,57 A 2.5,2.5 0 1,1 76,51 Z"
+            android:fillColor="#00E5FF" />
+
+    </group>
+
+</vector>

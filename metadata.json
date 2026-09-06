@@ -1,0 +1,6 @@
+{
+  "name": "DooraGo",
+  "description": "Production-quality offline AI Android assistant foundation and UI architecture built with Flutter & Material 3.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

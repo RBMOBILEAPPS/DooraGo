@@ -1,0 +1,54 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# KWS Local Dataset & Training Artifacts (Local developer files only)
+kws_dataset/
+training/data/
+training/checkpoints/
+training/output/
+*.wav
+*.flac
+
+# Android & Flutter Signing Keys and Secret Credentials
+*.jks
+*.keystore
+*.p12
+key.properties
+local.properties
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+
+# Local generated/developer files
+.dart_tool/
+*.litertlm
+crash_log.txt
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Local Piper/training tools
+tools/
+
+# Android local build/cache/debug files
+.gradle/
+*.hprof
+
+# Local backup files
+*.backup
+
+# Android local build/cache/debug files
+.gradle/
+*.hprof
+
+# Local backup files
+*.backup

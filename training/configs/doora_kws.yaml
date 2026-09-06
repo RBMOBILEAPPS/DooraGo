@@ -1,0 +1,107 @@
+# Doora Keyword Spotting (KWS) Training & Export Configuration
+# Project: DooraGo (com.rbapps.doorago)
+
+project:
+  name: "doora_kws"
+  target_keyword: "Doora"
+  version: "1.0.0"
+  random_seed: 42
+
+paths:
+  dataset_dir: "kws_dataset"
+  manifest_path: "training/data/manifest.json"
+  train_manifest_path: "training/data/train_manifest.json"
+  val_manifest_path: "training/data/val_manifest.json"
+  test_manifest_path: "training/data/test_manifest.json"
+  checkpoint_dir: "training/checkpoints"
+  output_dir: "training/output"
+  exported_tflite_path: "training/output/doora_kws.tflite"
+  contract_output_path: "training/output/model_contract.json"
+
+audio:
+  sample_rate: 16000
+  channels: 1
+  pcm_format: "int16"
+  clip_duration_ms: 1000       # 1.0 second context
+  clip_samples: 16000          # sample_rate * (clip_duration_ms / 1000)
+
+features:
+  type: "log_mel_spectrogram"
+  frame_length_ms: 30.0        # 30ms window (480 samples at 16kHz)
+  frame_length_samples: 480
+  frame_step_ms: 10.0          # 10ms hop (160 samples at 16kHz)
+  frame_step_samples: 160
+  fft_length: 512
+  num_mel_bins: 40
+  lower_edge_hertz: 80.0
+  upper_edge_hertz: 7600.0
+  log_compression_eps: 1.0e-6
+  # Resulting Spectrogram Dimension: [98 frames, 40 mel bins, 1 channel]
+
+classes:
+  # Explicit class index mapping
+  label_to_index:
+    non_doora: 0
+    doora: 1
+  index_to_label:
+    0: "non_doora"
+    1: "doora"
+  num_classes: 2
+
+split:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  min_val_speakers: 1          # 1 for 2-speaker pilot mode, >= 3 for full production datasets
+  min_test_speakers: 1         # 1 for 2-speaker pilot mode, >= 3 for full production datasets
+  enforce_speaker_disjoint: true
+
+augmentation:
+  enabled_for_training: true
+  enabled_for_validation: false
+  enabled_for_test: false
+  time_shift_ms_range: [-150, 150]
+  gain_db_range: [-6.0, 6.0]
+  noise_injection:
+    enabled: true
+    min_snr_db: 5.0
+    max_snr_db: 25.0
+  room_reverb:
+    enabled: true
+    probability: 0.25
+
+model:
+  architecture: "ds_cnn_tiny"   # Candidates: ds_cnn_tiny, ds_cnn_small, bc_resnet_1
+  first_conv_filters: 28
+  first_conv_kernel: [10, 4]
+  first_conv_stride: [2, 2]
+  ds_layers:
+    - { filters: 28, kernel: [3, 3], stride: [1, 1] }
+    - { filters: 28, kernel: [3, 3], stride: [1, 1] }
+    - { filters: 28, kernel: [3, 3], stride: [1, 1] }
+    - { filters: 28, kernel: [3, 3], stride: [1, 1] }
+  dropout_rate: 0.20
+
+training:
+  batch_size: 16
+  epochs: 60
+  learning_rate: 0.001
+  min_learning_rate: 0.00001
+  weight_decay: 0.0001
+  optimizer: "adamw"
+  lr_scheduler: "cosine_annealing"
+  early_stopping_patience: 30
+  early_stopping_metric: "val_loss"
+  early_stopping_mode: "min"
+
+quantization:
+  method: "full_int8"           # Full integer quantization for maximum Android CPU efficiency
+  inference_input_type: "float32" # Allows Float32 or Int8 ingestion
+  inference_output_type: "float32"
+  num_calibration_samples: 300
+
+evaluation:
+  target_frr_percent: 5.0       # False Reject Rate <= 5%
+  target_far_per_10h: 1.0       # False Alarm Rate < 1 per 10 hours
+  streaming_chunk_ms: 100       # 100ms streaming chunk simulation
+  default_confidence_threshold: 0.85

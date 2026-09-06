@@ -1,0 +1,11 @@
+plugins {
+    id 'com.android.ai-pack'
+}
+
+aiPack {
+    packName = "doora_ai_model"
+
+    dynamicDelivery {
+        deliveryType = "fast-follow"
+    }
+}

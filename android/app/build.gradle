@@ -1,0 +1,128 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
+if (flutterVersionCode == null) {
+    flutterVersionCode = "1"
+}
+
+def flutterVersionName = localProperties.getProperty("flutter.versionName")
+if (flutterVersionName == null) {
+    flutterVersionName = "1.0.0"
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withReader('UTF-8') { reader ->
+        keystoreProperties.load(reader)
+    }
+}
+
+android {
+    namespace "com.rbapps.doorago"
+    compileSdk 36
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    sourceSets {
+        main.java.srcDirs += "src/main/kotlin"
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.rbapps.doorago"
+        // Minimum SDK set to 26 for LiteRT-LM hardware delegation and Android 8.0+ capability
+        minSdk 26
+        targetSdk 36
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86_64"
+        }
+    }
+
+    // Prevent compression of LiteRT-LM model files so direct mmap execution works without decompression overhead
+    androidResources {
+        noCompress 'litertlm', 'bin', 'task', 'tflite'
+    }
+
+    assetPacks = [":doora_ai_model"]
+
+    buildTypes {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Official Google Play AI Delivery SDK for fast-follow model provisioning
+    implementation "com.google.android.play:ai-delivery:0.1.1-alpha01"
+
+    // Official Google AI Edge LiteRT-LM SDK for high-performance on-device LLM inference
+    implementation "com.google.ai.edge.litertlm:litertlm-android:0.16.1"
+
+    // Official Google AI Edge AICore SDK for optional on-device Gemini Nano inference
+    implementation "com.google.ai.edge.aicore:aicore:0.0.1-exp02"
+
+    // Kotlin Coroutines for asynchronous, non-blocking background model execution.
+    // IMPORTANT: Must be >= 1.11.0.
+    // litertlm-android:0.16.1 was compiled against coroutines 1.11.0+ which changed
+    // SendChannel.close() from a static synthetic close$default bridge to a JVM interface
+    // default method. Using 1.8.1 causes a fatal NoSuchMethodError at runtime when
+    // Conversation.sendMessageAsync() attempts to close its internal channel.
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0"
+}
+
+// Force all coroutine modules project-wide to >= 1.11.0.
+// This prevents any transitive dependency (including Flutter engine or other AARs)
+// from silently downgrading coroutines back to an incompatible version at runtime.
+configurations.all {
+    resolutionStrategy {
+        force "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0"
+        force "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0"
+        force "org.jetbrains.kotlinx:kotlinx-coroutines-jvm:1.11.0"
+    }
+}
